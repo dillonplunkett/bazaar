@@ -70,12 +70,10 @@ def create():
                           time_limit=form.time_limit.data,
                           default_lot=form.default_lot.data, pool=pool,
                           users=users, creator=current_user)
-        if form.default_lot.data:
-            auction.add_lot(size=form.default_lot.data)
-        elif form.default_lot.data == 0:
-            auction.add_lot()
-        else:
+        if form.first_nom.data:
             auction.add_lot(card=form.first_nom.data)
+        else:
+            auction.add_lot(size=form.default_lot.data)
         db.session.add(auction)
         db.session.flush()
         for user in users:

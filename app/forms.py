@@ -37,14 +37,14 @@ class CreateForm(FlaskForm):
                                                 NumberRange(min=1)])
     default_lot = IntegerField("Default Lot Size:",
                                validators=[Optional(),
-                                           NumberRange(min=1, max=15)])
+                                           NumberRange(min=0, max=15)])
     time_limit = IntegerField("Time Limit (seconds, optional):",
                               validators=[Optional(), NumberRange(min=1)])
     first_nom = StringField("First Nomination (optional if lot size is set):")
     submit_create = SubmitField("Create")
 
     def validate_first_nom(self, first_nom):
-        if self.default_lot.data and not first_nom.data:
+        if self.default_lot.data is not None and not first_nom.data:
             return
         if first_nom.data not in cube_cards.keys():
             raise ValidationError("That card isn't in the pool.")
@@ -88,6 +88,8 @@ class AdvanceForm(FlaskForm):
                 raise ValidationError(f"Only {cards_in_pool} cards left.")
         except ValueError:
             just_sold = auction.current_lot().content
+            if just_sold is None:
+                just_sold = []
             if next_lot.data not in pool.cards or next_lot.data in just_sold:
                 raise ValidationError("That card isn't in the pool.")
 
