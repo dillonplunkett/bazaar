@@ -3,7 +3,7 @@ from flask_login import current_user, login_required, login_user, logout_user
 from flask_socketio import emit
 from werkzeug.urls import url_parse
 from app import app, db
-from app.models import Auction, Balance, Bid, Pool, User, cube_cards
+from app.models import Auction, Balance, Bid, Pool, User
 from app.forms import (AdvanceForm, BidForm, CreateForm, CloseBiddingForm,
                        LoginForm, RegistrationForm, ResetForm)
 
@@ -161,15 +161,11 @@ def auction(auction_id):
         return redirect(url_for("auction", auction_id=auction_id))
     lot = auction.current_lot()
     waiting_on = lot.waiting_on()
-    if lot.content:
-        card_names = [cube_cards[card]["name"] for card in lot.content]
-    else:
-        card_names = None
     if waiting_on and current_user not in waiting_on:
         names = ", ".join([user.username for user in waiting_on])
         flash(f"Waiting on {names}.")
     return render_template("auction.html", title=f"Auction {auction_id}",
-                           auction=auction, lot=lot, card_names=card_names,
+                           auction=auction, lot=lot, card_names=lot.content,
                            advance_form=advance_form, bid_form=bid_form,
                            close_bidding_form=close_bidding_form,
                            reset_form=reset_form, waiting_on=waiting_on)
