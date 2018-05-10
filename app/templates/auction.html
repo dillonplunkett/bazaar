@@ -1,0 +1,102 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Auction {{ auction.id }}</h1>
+    <h2>Balances:</h2>
+    <ul>
+        {% for balance in auction.balances %}
+            {% if balance.holder == current_user %}<b>{% endif %}
+            <li>
+                {{ balance.holder.username }}: {{ balance.amount }}
+                {% if lot and lot.max_bid().bidder == balance.holder and not waiting_on %}
+                    <span style="color: red;">(-{{ lot.max_bid().amount }})</span>
+                {% endif %}
+            </li>
+            {% if balance.holder == current_user %}</b>{% endif %}
+        {% endfor %}
+    </ul>
+    {% if lot %}
+        <h2>Current Lot:</h2>
+        {% if card_names %}
+            {% for card in card_names %}
+                <img src="{{ url_for('static', filename='card_images/'+ card.replace(' ', '_') + '.jpg') }}" width="24%"/>
+            {% endfor %}
+        {% endif %}
+        {% if not waiting_on %}
+            <h3>Bids:</h3>
+            <ul>
+            {% for bid in lot.max_bids() %}
+                {% if bid == lot.max_bid() %}<span style="color: green;">{% endif %}
+                {% if bid %}
+                    <li>{{ bid.bidder.username }}: {{ bid.amount }}</li>
+                {% endif %}
+                {% if bid == lot.max_bid() %}</span>
+                {% endif %}
+            {% endfor %}
+            </ul>
+            {% if auction.creator == current_user %}
+            <form action="" method="post">
+                {{ advance_form.hidden_tag() }}
+                <p>
+                    {{ advance_form.next_lot(autofocus=true, size=32) }}
+                    {{ advance_form.submit_advance() }}
+                </p>
+                {% for error in advance_form.next_lot.errors %}
+                    <span style="color: red;">{{ error }}</span><br/>
+                {% endfor %}
+            </form>
+            <form action="" method="post">
+                {{ reset_form.hidden_tag() }}
+                <p>{{ reset_form.submit_reset(onclick="return confirm('Are you sure you want to reset bids on this lot?');") }}</p>
+            </form>
+            {% endif %}
+        {% elif current_user.has_funds(auction) %}
+            <form action="" method="post">
+                {{ bid_form.hidden_tag() }}
+                <p>
+                    {{ bid_form.amount.label }}
+                    {{ bid_form.amount(autofocus=true, size=4) }}<br/>
+                    {% for error in bid_form.amount.errors %}
+                        <span style="color: red;">{{ error }}</span><br/>
+                    {% endfor %}
+                </p>
+                <p>{{ bid_form.submit_bid() }}</p>
+            </form>
+            {% if auction.creator == current_user %}
+            <form action="" method="post">
+                {{ close_bidding_form.hidden_tag() }}
+                <p>{{ close_bidding_form.submit_close(onclick="return confirm('Are you use you want to close bidding?');") }}</p>
+            </form>
+            {% endif %}
+        {% else %}
+            <p>You have no funds left for this auction.</p>
+        {% endif %}
+    {% else %}
+        <h2>Auction Complete!</h2>
+    {% endif %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+    <script>
+        $(document).ready(function(msg){
+            var socket = io.connect();
+            {% if waiting_on and current_user not in waiting_on %}
+                socket.on("a bid from", function() {
+                    window.location.href = window.location.href;
+                });
+                // just in case
+                setTimeout(function(){
+                   window.location.href = window.location.href;
+                }, 10000);
+            {% endif %}
+            socket.on("next lot", function() {
+                window.location.href = window.location.href;
+            });
+            socket.on("reset", function() {
+                window.location.href = window.location.href;
+            });
+            socket.on("some bidders skipped", function() {
+                window.location.href = window.location.href;
+            });
+        });
+    </script>
+{% endblock %}

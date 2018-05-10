@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Create Auction</h1>
+    <form action="" method="post">
+        {{ form.hidden_tag() }}
+        <p>
+            {{ form.usernames.label }}<br/>
+            {{ form.usernames() }}<br/>
+            {% for error in form.usernames.errors %}
+                <span style="color: red;">{{ error }}</span><br/>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.starting_balance.label }}<br/>
+            {{ form.starting_balance(size=4) }}<br/>
+            {% for error in form.starting_balance.errors %}
+                <span style="color: red;">{{ error }}</span><br/>
+            {% endfor %}
+        </p>
+        <p>
+            {{ form.default_lot.label }}<br/>
+            {{ form.default_lot(size=4) }}<br/>
+            {% for error in form.default_lot.errors %}
+                <span style="color: red;">{{ error }}</span><br/>
+            {% endfor %}
+        </p>
+        </p>
+        <p>
+            {{ form.first_nom.label }}<br/>
+            {{ form.first_nom(size=32) }}<br/>
+            {% for error in form.first_nom.errors %}
+                <span style="color: red;">{{ error }}</span><br/>
+            {% endfor %}
+        </p>
+        {# <p>
+            {{ form.time_limit.label }}<br/>
+            {{ form.time_limit(size=4) }}<br/>
+            {% for error in form.time_limit.errors %}
+                <span style="color: red;">{{ error }}</span><br/>
+            {% endfor %}
+        </p> #}
+        <p>{{ form.submit_create() }}</p>
+    </form>
+{% endblock %}
