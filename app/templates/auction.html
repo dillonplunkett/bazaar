@@ -80,7 +80,7 @@
         $(document).ready(function(msg){
             var socket = io.connect();
             {% if waiting_on and current_user not in waiting_on %}
-                socket.on("a bid from", function() {
+                socket.on("a bid", function() {
                     window.location.href = window.location.href;
                 });
                 // just in case
