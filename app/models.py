@@ -123,7 +123,9 @@ class Lot(db.Model):
         return bids.order_by(Bid.amount.desc()).first()
 
     def max_bids(self):
-        return [self.max_bid(user) for user in self.auction.users]
+        # should really be done with join, i think?
+        bidders = self.auction.users.order_by(User.username)
+        return [self.max_bid(bidder) for bidder in bidders]
 
     def waiting_on(self):
         return [user for user in self.auction.users
