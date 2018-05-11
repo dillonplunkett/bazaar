@@ -9,10 +9,11 @@
 </head>
 <body>
     <div>
-        <a href="{{ url_for('index')}}">My Drafts</a>
         {% if current_user.is_anonymous %}
             <a href="{{ url_for('login') }}">Login</a>
+            <a href="{{ url_for('register') }}">Register</a>
         {% else %}
+            <a href="{{ url_for('index')}}">My Drafts</a>
             <a href="{{ url_for('create') }}">New Draft</a>
             <a href="{{ url_for('logout') }}">Logout</a>
         {% endif %}
