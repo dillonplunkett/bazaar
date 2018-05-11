@@ -89,17 +89,17 @@ def create():
 @login_required
 def auction(auction_id):
     auction = Auction.query.filter_by(id=auction_id).first_or_404()
+    lot = auction.current_lot()
     if auction not in current_user.auctions:
         flash("You are not an authorized member of that auction.")
         return redirect(url_for("index"))
+    if not lot:
+        return render_template("auction.html", title=f"Auction {auction_id}",
+                               auction=auction, lot=None)
     advance_form = AdvanceForm()
     advance_form.auction_id.data = auction_id
     reset_form = ResetForm()
     close_bidding_form = CloseBiddingForm()
-    if not auction.current_lot():
-        return render_template("auction.html", title=f"Auction {auction_id}",
-                               auction=auction, lot=None)
-    lot = auction.current_lot()
     waiting_on = lot.waiting_on()
     if (current_user == auction.creator) and not waiting_on:
         if advance_form.submit_advance.data and advance_form.validate():
