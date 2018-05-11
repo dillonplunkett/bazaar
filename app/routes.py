@@ -119,7 +119,8 @@ def auction(auction_id):
                 else:
                     auction.add_lot()
             db.session.commit()
-            emit("next lot", namespace=None, broadcast=True)
+            emit("next lot", {"auction.id": auction.id}, namespace=None,
+                 broadcast=True)
             if auction.is_complete():
                 return render_template("auction.html",
                                        title=f"Auction {auction_id}",
@@ -128,7 +129,8 @@ def auction(auction_id):
             for bid in lot.bids:
                 db.session.delete(bid)
             db.session.commit()
-            emit("reset", namespace=None, broadcast=True)
+            emit("reset", {"auction.id": auction.id}, namespace=None,
+                 broadcast=True)
     if (current_user == auction.creator) and waiting_on:
         if close_bidding_form.submit_close.data:
             for user in waiting_on:
@@ -137,7 +139,8 @@ def auction(auction_id):
             db.session.commit()
             skipped = ", ".join([user.username for user in waiting_on])
             flash(f"Proceeding without {skipped}.")
-            emit("some bidders skipped", namespace=None, broadcast=True)
+            emit("some bidders skipped", {"auction.id": auction.id},
+                 namespace=None, broadcast=True)
     bid_form = BidForm()
     bid_form.auction_id.data = auction_id
     bid_form.lot_id.data = auction.current_lot().id
@@ -154,7 +157,8 @@ def auction(auction_id):
                   amount=amount)
         db.session.add(bid)
         db.session.commit()
-        emit("a bid", namespace=None, broadcast=True)
+        emit("a bid", {"auction.id": auction.id}, namespace=None,
+             broadcast=True)
         flash(f"Bid of {amount} recorded.")
         return redirect(url_for("auction", auction_id=auction_id))
     lot = auction.current_lot()

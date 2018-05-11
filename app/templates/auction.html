@@ -78,26 +78,23 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
     <script>
-        $(document).ready(function(msg){
+        function refresh_auction(msg) {
+            if (msg["auction.id"] === {{ auction.id}}) {
+                window.location.href = window.location.href;
+            }
+        }
+        $(document).ready(function(){
             var socket = io.connect();
             {% if waiting_on and current_user not in waiting_on %}
-                socket.on("a bid", function() {
-                    window.location.href = window.location.href;
-                });
+                socket.on("a bid", refresh_auction);
                 // just in case
                 setTimeout(function(){
                    window.location.href = window.location.href;
                 }, 10000);
             {% endif %}
-            socket.on("next lot", function() {
-                window.location.href = window.location.href;
-            });
-            socket.on("reset", function() {
-                window.location.href = window.location.href;
-            });
-            socket.on("some bidders skipped", function() {
-                window.location.href = window.location.href;
-            });
+            socket.on("next lot", refresh_auction);
+            socket.on("reset", refresh_auction);
+            socket.on("some bidders skipped", refresh_auction);
         });
     </script>
 {% endblock %}
