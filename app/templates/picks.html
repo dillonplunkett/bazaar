@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block content %}
+    {% if user %}
+        <h1>{{ user.username }}'s Picks for Auction {{ auction.id }}</h1>
+        {% if card_names %}
+            {% for card in card_names %}
+                <img src="{{ url_for('static', filename='card_images/'+ card.replace(' ', '_') + '.jpg') }}" width="24%"/>
+            {% endfor %}
+        {% else %}
+            <p>{{ user.username }} hasn't made any picks yet.</p>
+        {% endif %}
+    {% else %}
+        <h1>Auction {{ auction.id}} Results</h1>
+        {% include "pick_links.html" %}
+    {% endif %}
+{% endblock %}

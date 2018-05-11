@@ -3,7 +3,7 @@ from flask_login import current_user, login_required, login_user, logout_user
 from flask_socketio import emit
 from werkzeug.urls import url_parse
 from app import app, db
-from app.models import Auction, Balance, Bid, Pool, User
+from app.models import Auction, Balance, Bid, Lot, Pool, User
 from app.forms import (AdvanceForm, BidForm, CreateForm, CloseBiddingForm,
                        LoginForm, RegistrationForm, ResetForm)
 
@@ -167,3 +167,25 @@ def auction(auction_id):
                            advance_form=advance_form, bid_form=bid_form,
                            close_bidding_form=close_bidding_form,
                            reset_form=reset_form, waiting_on=waiting_on)
+
+
+@app.route("/picks/<auction_id>/")
+@app.route("/picks/<auction_id>/<username>")
+@login_required
+def picks(auction_id, username=None):
+    auction = Auction.query.filter_by(id=auction_id).first_or_404()
+    if not username:
+        return render_template("picks.html",
+                               title=f"Auction {auction_id} picks",
+                               auction=auction)
+    user = User.query.filter_by(username=username).first()
+    if user not in auction.users:
+        flash(f"{username} is not part of Auction {auction_id}.")
+        return redirect(url_for("picks", auction_id=auction_id))
+    all_lots = Lot.query.filter_by(winner=user, auction_id=auction_id).all()
+    all_cards = [lot.content for lot in all_lots]
+    all_cards_flattened = [card for lot in all_cards for card in lot]
+    return render_template("picks.html",
+                           title=f"{username}'s Auction {auction_id} picks",
+                           user=user, auction=auction,
+                           card_names=all_cards_flattened)

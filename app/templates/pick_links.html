@@ -1,0 +1,9 @@
+<ul>
+{% for user in auction.users.order_by("username") %}
+    {% if user == current_user %}<b>{% endif %}
+    <li>
+        <a href="{{ url_for('picks', auction_id=auction.id, username=user.username) }}">{{ user.username }}'s picks</a>
+    </li>
+    {% if user == current_user %}</b>{% endif %}
+{% endfor %}
+</ul>
