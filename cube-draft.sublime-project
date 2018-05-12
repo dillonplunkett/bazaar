@@ -1,0 +1,9 @@
+{
+	"folders":
+	[
+		{
+			"path": ".",
+            "binary_file_patterns": ["cube.json", "cube_list.txt"]
+		}
+	]
+}

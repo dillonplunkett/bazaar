@@ -1,5 +1,6 @@
 app/static/card_images/
 app.db
+todo.txt
 
 *.sublime-workspace
 
