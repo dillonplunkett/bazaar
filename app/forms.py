@@ -29,7 +29,7 @@ class RegistrationForm(FlaskForm):
 
 
 class CreateForm(FlaskForm):
-    usernames = SelectMultipleField("Users", validators=[InputRequired()],
+    usernames = SelectMultipleField("Users:", validators=[InputRequired()],
                                     widget=ListWidget(prefix_label=False),
                                     option_widget=CheckboxInput())
     starting_balance = IntegerField("Starting Balance:",
@@ -38,9 +38,9 @@ class CreateForm(FlaskForm):
     default_lot = IntegerField("Default Lot Size:",
                                validators=[Optional(),
                                            NumberRange(min=0, max=15)])
-    time_limit = IntegerField("Time Limit (seconds, optional):",
+    time_limit = IntegerField("Time Limit (seconds):",
                               validators=[Optional(), NumberRange(min=1)])
-    first_nom = StringField("First Nomination (optional if lot size is set):")
+    first_nom = StringField("First Nomination:")
     submit_create = SubmitField("Create")
 
     def validate_first_nom(self, first_nom):
@@ -73,6 +73,7 @@ class AdvanceForm(FlaskForm):
     auction_id = HiddenField()
     next_lot = StringField("Set Lot:", validators=[Optional()])
     submit_advance = SubmitField("Advance")
+    submit_reset = SubmitField("Reset")
 
     def validate_next_lot(self, next_lot):
         if not next_lot.data:
@@ -92,7 +93,3 @@ class AdvanceForm(FlaskForm):
                 just_sold = []
             if next_lot.data not in pool.cards or next_lot.data in just_sold:
                 raise ValidationError("That card isn't in the pool.")
-
-
-class ResetForm(FlaskForm):
-    submit_reset = SubmitField("Reset")

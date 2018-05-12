@@ -5,7 +5,7 @@ from werkzeug.urls import url_parse
 from app import app, db
 from app.models import Auction, Balance, Bid, Lot, Pool, User
 from app.forms import (AdvanceForm, BidForm, CreateForm, CloseBiddingForm,
-                       LoginForm, RegistrationForm, ResetForm)
+                       LoginForm, RegistrationForm)
 
 
 @app.route("/")
@@ -98,7 +98,6 @@ def auction(auction_id):
                                auction=auction, lot=None)
     advance_form = AdvanceForm()
     advance_form.auction_id.data = auction_id
-    reset_form = ResetForm()
     close_bidding_form = CloseBiddingForm()
     waiting_on = lot.waiting_on()
     if (current_user == auction.creator) and not waiting_on:
@@ -125,7 +124,7 @@ def auction(auction_id):
                 return render_template("auction.html",
                                        title=f"Auction {auction_id}",
                                        auction=auction, lot=None)
-        if reset_form.submit_reset.data:
+        if advance_form.submit_reset.data:
             for bid in lot.bids:
                 db.session.delete(bid)
             db.session.commit()
@@ -170,7 +169,7 @@ def auction(auction_id):
                            auction=auction, lot=lot, card_names=lot.content,
                            advance_form=advance_form, bid_form=bid_form,
                            close_bidding_form=close_bidding_form,
-                           reset_form=reset_form, waiting_on=waiting_on)
+                           waiting_on=waiting_on)
 
 
 @app.route("/picks/<auction_id>/")
