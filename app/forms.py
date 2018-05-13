@@ -43,11 +43,16 @@ class CreateForm(FlaskForm):
     first_nom = StringField("First Nomination:")
     submit_create = SubmitField("Create")
 
+    def validate_usernames(self, usernames):
+        if current_user.username not in usernames.data:
+            raise ValidationError("You must be one of the drafters.")
+
     def validate_first_nom(self, first_nom):
-        if self.default_lot.data is not None and not first_nom.data:
-            return
-        if first_nom.data not in cube_cards.keys():
+        if first_nom.data and first_nom.data not in cube_cards.keys():
             raise ValidationError("That card isn't in the cube.")
+        if not self.default_lot.data and not first_nom.data:
+            raise ValidationError("A first nomination is required if no "
+                                  "default lot size is provided.")
 
 
 class BidForm(FlaskForm):

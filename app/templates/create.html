@@ -18,7 +18,7 @@
             {% endif %}
         </div>
         {{ wtf.form_field(form.starting_balance) }}
-        {{ wtf.form_field(form.default_lot) }}
+        {{ wtf.form_field(form.default_lot, placeholder="None") }}
         {{ wtf.form_field(form.first_nom, placeholder="None") }}
         {{ wtf.form_field(form.time_limit, placeholder="None") }}
         {{ wtf.form_field(form.submit_create) }}
