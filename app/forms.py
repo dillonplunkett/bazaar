@@ -47,7 +47,7 @@ class CreateForm(FlaskForm):
         if self.default_lot.data is not None and not first_nom.data:
             return
         if first_nom.data not in cube_cards.keys():
-            raise ValidationError("That card isn't in the pool.")
+            raise ValidationError("That card isn't in the cube.")
 
 
 class BidForm(FlaskForm):
