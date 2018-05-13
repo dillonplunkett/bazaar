@@ -21,5 +21,5 @@ socketio = SocketIO(app)
 
 from app import routes, models
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     socketio.run(app)

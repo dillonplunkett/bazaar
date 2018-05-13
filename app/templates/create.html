@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% import 'bootstrap/wtf.html' as wtf %}
+{% import "bootstrap/wtf.html" as wtf %}
 {% from "helpers.js" import autocomplete %}
 
 {% block app_content %}
@@ -14,7 +14,7 @@
                     <p class="help-block">{{error}}</p>
                 {% endfor %}
             {% elif form.usernames.description -%}
-                <p class="help-block">{{form.usernames.description|safe}}</p>
+                <p class="help-block">{{ form.usernames.description|safe }}</p>
             {% endif %}
         </div>
         {{ wtf.form_field(form.starting_balance) }}

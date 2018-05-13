@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% import 'bootstrap/wtf.html' as wtf %}
+{% import "bootstrap/wtf.html" as wtf %}
 {% from "helpers.js" import autocomplete %}
 
 {% block app_content %}
@@ -80,12 +80,12 @@
                 window.location.href = window.location.href;
             }
         }
-        $(document).ready(function(){
+        $(document).ready(function() {
             var socket = io.connect();
             {% if waiting_on and current_user not in waiting_on %}
                 socket.on("a bid", refresh_auction);
                 // just in case
-                setTimeout(function(){
+                setTimeout(function() {
                    window.location.href = window.location.href;
                 }, 10000);
             {% endif %}
