@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% import 'bootstrap/wtf.html' as wtf %}
+{% from "helpers.js" import autocomplete %}
 
 {% block app_content %}
     <h1>Auction {{ auction.id }}</h1>
@@ -70,8 +71,9 @@
     <hr/>
     <h2>Picks:</h2>
     {% include "pick_links.html" %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+{% endblock %}
+
+{% block app_scripts %}
     <script>
         function refresh_auction(msg) {
             if (msg["auction.id"] === {{ auction.id}}) {
@@ -90,6 +92,8 @@
             socket.on("next lot", refresh_auction);
             socket.on("reset", refresh_auction);
             socket.on("some bidders skipped", refresh_auction);
+
+            {{ autocomplete("next_lot", auction.pool.cards) }}
         });
     </script>
 {% endblock %}

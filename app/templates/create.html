@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% import 'bootstrap/wtf.html' as wtf %}
+{% from "helpers.js" import autocomplete %}
 
 {% block app_content %}
     <h1>Create Auction</h1>
@@ -22,4 +23,12 @@
         {{ wtf.form_field(form.time_limit, placeholder="None") }}
         {{ wtf.form_field(form.submit_create) }}
     </form>
+{% endblock %}
+
+{% block app_scripts %}
+    <script>
+        $(document).ready(function(){
+            {{ autocomplete("first_nom", cube_card_names) }}
+        });
+    </script>
 {% endblock %}

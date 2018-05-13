@@ -3,7 +3,7 @@ from flask_login import current_user, login_required, login_user, logout_user
 from flask_socketio import emit
 from werkzeug.urls import url_parse
 from app import app, db
-from app.models import Auction, Balance, Bid, Lot, Pool, User
+from app.models import Auction, Balance, Bid, Lot, Pool, User, cube_cards
 from app.forms import (AdvanceForm, BidForm, CreateForm, CloseBiddingForm,
                        LoginForm, RegistrationForm)
 
@@ -61,6 +61,7 @@ def create():
     form = CreateForm()
     form.usernames.choices = [(u.username, u.username)
                               for u in User.query.order_by("username")]
+    cube_card_names = list(cube_cards.keys())
     if form.validate_on_submit():
         users = [User.query.filter_by(username=username).first()
                  for username in form.usernames.data]
@@ -82,7 +83,8 @@ def create():
             db.session.add(new_balance)
         db.session.commit()
         return redirect(url_for("auction", auction_id=auction.id))
-    return render_template("create.html", title="New Draft", form=form)
+    return render_template("create.html", title="New Draft", form=form,
+                           cube_card_names=cube_card_names)
 
 
 @app.route("/auction/<auction_id>", methods=["GET", "POST"])
@@ -167,9 +169,9 @@ def auction(auction_id):
         flash(f"Waiting on {names}.")
     return render_template("auction.html", title=f"Auction {auction_id}",
                            auction=auction, lot=lot, card_names=lot.content,
-                           advance_form=advance_form, bid_form=bid_form,
-                           close_bidding_form=close_bidding_form,
-                           waiting_on=waiting_on)
+                           waiting_on=waiting_on, bid_form=bid_form,
+                           advance_form=advance_form,
+                           close_bidding_form=close_bidding_form)
 
 
 @app.route("/picks/<auction_id>/")

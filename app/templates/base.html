@@ -8,6 +8,11 @@
     {% endif %}
 {% endblock %}
 
+{% block styles %}
+    {{super()}}
+    <link rel="stylesheet" href="{{ url_for('static', filename='jquery-ui.minimal.css') }}">
+{% endblock %}
+
 {% block navbar %}
     <nav class="navbar navbar-default">
         <div class="container">
@@ -50,4 +55,20 @@
 
         {% block app_content %}{% endblock %}
     </div>
+{% endblock %}
+
+{% block scripts %}
+    {{super()}}
+    <script src="{{ url_for('static', filename='jquery-ui.custom.min.js') }}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.3/socket.io.js"></script>
+    <script>
+        // autocomplete only from beginning of words (from https://miroslavpopovic.com/posts/2012/06/jqueryui-autocomplete-filter-words-starting-with-term)
+        $.ui.autocomplete.filter = function(array, term) {
+            var matcher = new RegExp("(^| )" + $.ui.autocomplete.escapeRegex(term), "i");
+            return $.grep(array, function (value) {
+                return matcher.test(value.label || value.value || value);
+            });
+        };
+    </script>
+    {% block app_scripts %}{% endblock %}
 {% endblock %}
