@@ -43,7 +43,7 @@
             <br/>
             <form class="form form-inline text-center" action="" method="post">
                 {{ bid_form.hidden_tag() }}
-                {{ wtf.form_field(bid_form.amount, form_type="inline", autofocus=true, placeholder="Bid") }}
+                {{ wtf.form_field(bid_form.amount, form_type="inline", autofocus=true, autocomplete="off", placeholder="Bid") }}
                 {{ wtf.form_field(bid_form.submit_bid) }}
             </form>
             {% if auction.creator == current_user %}
