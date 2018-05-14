@@ -106,6 +106,7 @@ class Balance(db.Model):
 
 class Lot(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
     active = db.Column(db.Boolean)
     auction_id = db.Column(db.Integer, db.ForeignKey("auction.id"))
     winner_id = db.Column(db.Integer, db.ForeignKey("user.id"))
@@ -138,6 +139,11 @@ class Lot(db.Model):
         winner_balance = self.winner.balances.filter_by(auction=self.auction).first()
         winner_balance.amount = winner_balance.amount - winning_bid.amount
         self.active = False
+
+    def reset(self):
+        for bid in self.bids:
+            db.session.delete(bid)
+        self.timestamp = datetime.utcnow()
 
 
 class Bid(db.Model):

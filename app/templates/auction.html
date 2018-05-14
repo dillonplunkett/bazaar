@@ -3,7 +3,16 @@
 {% from "helpers.js" import autocomplete %}
 
 {% block app_content %}
-    <h4>Auction {{ auction.id }}</h4>
+    <div id="header-and-clock" class="row">
+        <div class="col-xs-6">
+            <h4>Auction {{ auction.id }}</h4>
+        </div>
+        {% if auction.time_limit and waiting_on %}
+        <div class="col-xs-6">
+            <h4 id="clock" class="text-right"></h4>
+        </div>
+        {% endif %}
+    </div>
     <hr/>
     {% if lot %}
         <div id="lot" class="text-center">
@@ -82,6 +91,19 @@
 
 {% block app_scripts %}
     <script>
+        function update_clock() {
+            var time_limit = {{ auction.time_limit }};
+            var start_time = moment.utc("{{ lot.timestamp }}");
+            var since_start = moment().diff(start_time);
+            if (since_start >= 60*60*1000) {
+                $("#clock").html("(stale lot)");
+            } else {
+                $("#clock").html(moment.utc(since_start).format("mm:ss"));
+                if (since_start >= time_limit * 1000) {
+                    $("#clock").css("color", "red");
+                }
+            }
+        }
         function refresh_auction(msg) {
             if (msg["auction.id"] === {{ auction.id}}) {
                 window.location.href = window.location.href;
@@ -99,6 +121,9 @@
             socket.on("next lot", refresh_auction);
             socket.on("reset", refresh_auction);
             socket.on("some bidders skipped", refresh_auction);
+
+            setInterval(update_clock, 100);
+            update_clock();
 
             {{ autocomplete("next_lot", auction.pool.cards) }}
         });

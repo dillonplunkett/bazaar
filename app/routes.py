@@ -127,8 +127,7 @@ def auction(auction_id):
                                        title=f"Auction {auction_id}",
                                        auction=auction, lot=None)
         if advance_form.submit_reset.data:
-            for bid in lot.bids:
-                db.session.delete(bid)
+            lot.reset()
             db.session.commit()
             emit("reset", {"auction.id": auction.id}, namespace=None,
                  broadcast=True)
