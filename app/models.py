@@ -125,7 +125,8 @@ class Lot(db.Model):
     def max_bids(self):
         # should really be done with join, i think?
         bidders = self.auction.users.order_by(User.username)
-        return [self.max_bid(bidder) for bidder in bidders]
+        bids = [self.max_bid(bidder) for bidder in bidders]
+        return sorted(bids, key=lambda bid: bid.amount, reverse=True)
 
     def waiting_on(self):
         return [user for user in self.auction.users
