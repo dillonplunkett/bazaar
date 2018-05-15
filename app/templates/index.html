@@ -1,12 +1,14 @@
 {% extends "base.html" %}
 
 {% block app_content %}
-    <h1>Your Auctions:</h1>
-    {% if current_user.auctions %}
+    <h1>Your Drafts:</h1>
+    {% if current_user.auctions.first() %}
         <ul>
             {% for auction in current_user.auctions %}
                 <li><a href="{{ url_for('auction', auction_id=auction.id) }}">Auction {{ auction.id }}</a></li>
             {% endfor %}
         </ul>
+    {% else %}
+        <p>You aren't a member of any drafts yet. <a href="{{ url_for('create') }}">Create one!</a></p>
     {% endif %}
 {% endblock %}
