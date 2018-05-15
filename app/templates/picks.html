@@ -3,13 +3,35 @@
 {% block app_content %}
     {% if user %}
         <h1>{{ user.username }}'s Picks for Auction {{ auction.id }}</h1>
-        {% if card_names %}
-            {% for card in card_names %}
-                <img src="{{ url_for('static', filename='card_images/'+ card.replace(' ', '_') + '.jpg') }}" width="24%"/>
-            {% endfor %}
-        {% else %}
-            <p>{{ user.username }} hasn't made any picks yet.</p>
-        {% endif %}
+        <ul class="nav nav-pills">
+            <li class="active">
+                <a id="pick-order-tab" data-toggle="pill" href="#pick-order" role="tab" aria-controls="pick-order" aria-selected="true">By Pick Order</a>
+            </li>
+            <li>
+                <a id="color-order-tab" data-toggle="pill" href="#color-order" role="tab" aria-controls="color-order" aria-selected="false">By Color</a>
+            </li>
+        </ul>
+        <br>
+        <div class="tab-content" id="tabContent">
+            <div class="tab-pane fade active in" id="pick-order" role="tabpanel" aria-labelledby="pick-order-tab">
+                {% if pick_sorted %}
+                    {% for card in pick_sorted %}
+                        <img src="{{ url_for('static', filename='card_images/'+ card.replace(' ', '_') + '.jpg') }}" width="24%"/>
+                    {% endfor %}
+                {% else %}
+                    <p>{{ user.username }} hasn't made any picks yet.</p>
+                {% endif %}
+            </div>
+            <div class="tab-pane" id="color-order" role="tabpanel" aria-labelledby="color-order-tab">
+                {% if color_sorted %}
+                    {% for card in color_sorted %}
+                        <img src="{{ url_for('static', filename='card_images/'+ card.replace(' ', '_') + '.jpg') }}" width="24%"/>
+                    {% endfor %}
+                {% else %}
+                    <p>{{ user.username }} hasn't made any picks yet.</p>
+                {% endif %}
+            </div>
+        </div>
     {% else %}
         <h1>Auction {{ auction.id}} Results</h1>
         {% include "pick_links.html" %}

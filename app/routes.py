@@ -187,9 +187,13 @@ def picks(auction_id, username=None):
         flash(f"{username} is not part of Auction {auction_id}.")
         return redirect(url_for("picks", auction_id=auction_id))
     all_lots = Lot.query.filter_by(winner=user, auction_id=auction_id).all()
-    all_cards = [lot.content for lot in all_lots]
-    all_cards_flattened = [card for lot in all_cards for card in lot]
+    all_cards_nested = [lot.content for lot in all_lots]
+    all_cards = [card for lot in all_cards_nested for card in lot]
+    # This assumes the cube list is sorted by color. This allows manual tweaks
+    # to color identity (e.g., counting Vedalken Shackles as blue).
+    # It also relies on dicts preserving order (python >=3.6).
+    color_sorted = sorted(all_cards, key=list(cube_cards).index)
     return render_template("picks.html",
                            title=f"{username}'s Auction {auction_id} picks",
-                           user=user, auction=auction,
-                           card_names=all_cards_flattened)
+                           user=user, auction=auction, pick_sorted=all_cards,
+                           color_sorted=color_sorted)
