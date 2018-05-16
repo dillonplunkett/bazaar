@@ -54,6 +54,13 @@
                 {{ bid_form.hidden_tag() }}
                 {{ wtf.form_field(bid_form.amount, form_type="inline", autofocus=true, autocomplete="off", placeholder="Bid") }}
                 {{ wtf.form_field(bid_form.submit_bid) }}
+                {% if bid_form.amount.errors %}
+                    <div class="has-error">
+                        {% for error in bid_form.amount.errors %}
+                            <p class="help-block">{{error}}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
             </form>
             {% if auction.creator == current_user %}
             <br/>
