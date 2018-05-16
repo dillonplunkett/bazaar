@@ -30,7 +30,7 @@
             <div id="bids" class="text-center">
                 <h3>Bids</h3>
                 <ul class="list-unstyled">
-                {% for bid in lot.max_bids() %}
+                {% for bid in lot.final_bids() %}
                     {% if bid == lot.max_bid() %}<span style="color: green;">{% endif %}
                     {% if bid %}
                         <li>{{ bid.bidder.username }}: {{ bid.amount }}</li>

@@ -116,22 +116,27 @@ class Lot(db.Model):
     def __repr__(self):
         return f"<Lot {self.id}>"
 
-    def max_bid(self, user=None):
-        if user:
-            bids = self.bids.filter_by(bidder=user)
-        else:
-            bids = self.bids
-        return bids.order_by(Bid.amount.desc()).first()
+    def final_bid(self, user):
+        user_bids = self.bids.filter_by(bidder=user)
+        return user_bids.order_by(Bid.timestamp.desc()).first()
 
-    def max_bids(self):
-        # should really be done with join, i think?
-        bidders = self.auction.users.order_by(User.username)
-        bids = [self.max_bid(bidder) for bidder in bidders]
-        return sorted(bids, key=lambda bid: bid.amount, reverse=True)
+    def final_bids(self):
+        final_bids = [self.final_bid(user) for user in self.auction.users
+                      if self.final_bid(user)]
+        final_bids.sort(key=lambda bid: bid.timestamp) # seconday sort
+        final_bids.sort(key=lambda bid: bid.amount, reverse=True) # primary sort
+        return final_bids
+
+    def max_bid(self):
+        final_bids = self.final_bids()
+        if final_bids:
+            return final_bids[0]
+        else:
+            return None
 
     def waiting_on(self):
         return [user for user in self.auction.users
-                if not self.max_bid(user) and user.has_funds(self.auction)]
+                if not self.final_bid(user) and user.has_funds(self.auction)]
 
     def record_winner(self):
         winning_bid = self.max_bid()
