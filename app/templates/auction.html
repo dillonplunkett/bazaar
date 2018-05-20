@@ -3,6 +3,7 @@
 {% from "helpers.js" import autocomplete %}
 
 {% block app_content %}
+
     <div id="header-and-clock" class="row">
         <div class="col-xs-6">
             <h4>Auction {{ auction.id }}</h4>
@@ -14,7 +15,9 @@
         {% endif %}
     </div>
     <hr/>
+
     {% if lot %}
+
         <div id="lot" class="text-center">
             {% if lot.content %}
                     <h3>Current Lot</h3>
@@ -25,7 +28,9 @@
                 <p>Place your bid.</p>
             {% endif %}
         </div>
+
         {% if not waiting_on %}
+
             <hr/>
             <div id="bids" class="text-center">
                 <h3>Bids</h3>
@@ -40,15 +45,18 @@
                 {% endfor %}
                 </ul>
             </div>
+
             {% if auction.creator == current_user %}
-            <form class="form form-inline text-center" action="" method="post">
-                {{ advance_form.hidden_tag() }}
-                {{ wtf.form_field(advance_form.next_lot, form_type="inline", autofocus=true, placeholder="Nominate Card") }}
-                {{ wtf.form_field(advance_form.submit_advance) }}
-                {{ wtf.form_field(advance_form.submit_reset, class="btn btn-warning", onclick="return confirm('Are you sure you want to reset bids on this lot?');") }}
-            </form>
+                <form class="form form-inline text-center" action="" method="post">
+                    {{ advance_form.hidden_tag() }}
+                    {{ wtf.form_field(advance_form.next_lot, form_type="inline", autofocus=true, placeholder="Nominate Card") }}
+                    {{ wtf.form_field(advance_form.submit_advance) }}
+                    {{ wtf.form_field(advance_form.submit_reset, class="btn btn-warning", onclick="return confirm('Are you sure you want to reset bids on this lot?');") }}
+                </form>
             {% endif %}
+
         {% elif current_user.has_funds(auction) %}
+
             <br/>
             <form class="form form-inline text-center" action="" method="post">
                 {{ bid_form.hidden_tag() }}
@@ -98,10 +106,12 @@
         {% endfor %}
     </ul>
     <hr/>
+
     <div id="Picks" class="text-center">
         <h3>Picks</h3>
         {% include "pick_links.html" %}
     </div>
+
 {% endblock %}
 
 {% block app_scripts %}

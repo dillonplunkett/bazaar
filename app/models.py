@@ -101,7 +101,8 @@ class Balance(db.Model):
     amount = db.Column(db.Integer)
 
     def __repr__(self):
-        return f"<Balance for {self.user_id} in {self.auction_id}>"
+        return (f"<Balance for {self.holder.username} "
+                f"in Auction {self.auction_id}>")
 
 
 class Lot(db.Model):
@@ -123,8 +124,9 @@ class Lot(db.Model):
     def final_bids(self):
         final_bids = [self.final_bid(user) for user in self.auction.users
                       if self.final_bid(user)]
-        final_bids.sort(key=lambda bid: bid.timestamp) # seconday sort
-        final_bids.sort(key=lambda bid: bid.amount, reverse=True) # primary sort
+        final_bids.sort(key=lambda bid: bid.timestamp)  # seconday sort
+        final_bids.sort(key=lambda bid: bid.amount,
+                        reverse=True)  # primary sort
         return final_bids
 
     def max_bid(self):
@@ -141,7 +143,8 @@ class Lot(db.Model):
     def record_winner(self):
         winning_bid = self.max_bid()
         self.winner = winning_bid.bidder
-        winner_balance = self.winner.balances.filter_by(auction=self.auction).first()
+        winner_balance = (self.winner.balances.
+                          filter_by(auction=self.auction).first())
         winner_balance.amount = winner_balance.amount - winning_bid.amount
         self.active = False
 
