@@ -1,5 +1,5 @@
 <ul class="list-unstyled">
-{% for user in auction.users.order_by("username") %}
+{% for user in users %}
     {% if user == current_user %}<b>{% endif %}
     <li>
         <a href="{{ url_for('picks', auction_id=auction.id, username=user.username) }}">{{ user.username }}'s picks</a>

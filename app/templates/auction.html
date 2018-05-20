@@ -16,9 +16,9 @@
     <hr/>
     {% if lot %}
         <div id="lot" class="text-center">
-            {% if card_names %}
+            {% if lot.content %}
                     <h3>Current Lot</h3>
-                    {% for card in card_names %}
+                    {% for card in lot.content %}
                         <img src="{{ url_for('static', filename='card_images/'+ card.replace(' ', '_') + '.jpg') }}" width="24%"/>
                     {% endfor %}
             {% else %}
@@ -62,23 +62,31 @@
                     </div>
                 {% endif %}
             </form>
+
             {% if auction.creator == current_user %}
-            <br/>
-            <form class="text-center" action="" method="post">
-                {{ close_bidding_form.hidden_tag() }}
-                {{ wtf.form_field(close_bidding_form.submit_close, class="btn btn-warning", onclick="return confirm('Are you use you want to close bidding?');") }}
-            </form>
+                <br/>
+                <form class="text-center" action="" method="post">
+                    {{ close_bidding_form.hidden_tag() }}
+                    {{ wtf.form_field(close_bidding_form.submit_close, class="btn btn-warning", onclick="return confirm('Are you use you want to close bidding?');") }}
+                </form>
             {% endif %}
+
         {% else %}
+
             <p>You have no funds left for this auction.</p>
+
         {% endif %}
+
     {% else %}
+
         <h3>Auction Complete!</h3>
+
     {% endif %}
+
     <hr/>
         <h3 class="text-center">Balances</h3>
     <ul class="list-inline text-center" style="display: flex">
-        {% for balance in auction.balances %}
+        {% for balance in balances %}
             <li style="flex: 1">
                 {% if balance.holder == current_user %}<b>{% endif %}
                 {{ balance.holder.username }}: {{ balance.amount }}

@@ -59,8 +59,8 @@ def logout():
 @login_required
 def create():
     form = CreateForm()
-    form.usernames.choices = [(u.username, u.username)
-                              for u in User.query.order_by("username")]
+    all_users = User.query.order_by(db.func.lower(User.username))
+    form.usernames.choices = [(u.username, u.username) for u in all_users]
     cube_card_names = list(cube_cards.keys())
     if form.validate_on_submit():
         users = [User.query.filter_by(username=username).first()
@@ -91,13 +91,14 @@ def create():
 @login_required
 def auction(auction_id):
     auction = Auction.query.filter_by(id=auction_id).first_or_404()
+    users = auction.users.order_by(db.func.lower(User.username))
     lot = auction.current_lot()
     if auction not in current_user.auctions:
         flash("You are not an authorized member of that auction.")
         return redirect(url_for("index"))
     if not lot:
         return render_template("auction.html", title=f"Auction {auction_id}",
-                               auction=auction, lot=None)
+                               auction=auction, users=users, lot=None)
     advance_form = AdvanceForm()
     advance_form.auction_id.data = auction_id
     close_bidding_form = CloseBiddingForm()
@@ -125,7 +126,7 @@ def auction(auction_id):
             if auction.is_complete():
                 return render_template("auction.html",
                                        title=f"Auction {auction_id}",
-                                       auction=auction, lot=None)
+                                       auction=auction, users=users, lot=None)
         if advance_form.submit_reset.data:
             lot.reset()
             db.session.commit()
@@ -166,9 +167,11 @@ def auction(auction_id):
     if waiting_on and current_user not in waiting_on:
         names = ", ".join([user.username for user in waiting_on])
         flash(f"Waiting on {names}.")
+    balances = (auction.balances.join(User).
+                order_by(db.func.lower(User.username)))
     return render_template("auction.html", title=f"Auction {auction_id}",
-                           auction=auction, lot=lot, card_names=lot.content,
-                           waiting_on=waiting_on, bid_form=bid_form,
+                           auction=auction, users=users, balances=balances,
+                           lot=lot, waiting_on=waiting_on, bid_form=bid_form,
                            advance_form=advance_form,
                            close_bidding_form=close_bidding_form)
 
@@ -179,9 +182,10 @@ def auction(auction_id):
 def picks(auction_id, username=None):
     auction = Auction.query.filter_by(id=auction_id).first_or_404()
     if not username:
+        users = auction.users.order_by(db.func.lower(User.username))
         return render_template("picks.html",
                                title=f"Auction {auction_id} picks",
-                               auction=auction)
+                               auction=auction, users=users)
     user = User.query.filter_by(username=username).first()
     if user not in auction.users:
         flash(f"{username} is not part of Auction {auction_id}.")
