@@ -116,10 +116,8 @@ def auction(auction_id):
                         auction.add_lot(size=num_cards)
                     except ValueError:
                         auction.add_lot(card=advance_form.next_lot.data)
-                elif auction.default_lot:
-                    auction.add_lot(size=auction.default_lot)
                 else:
-                    auction.add_lot()
+                    auction.add_lot(size=auction.default_lot)
             db.session.commit()
             emit("next lot", {"auction.id": auction.id}, namespace=None,
                  broadcast=True)

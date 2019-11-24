@@ -36,7 +36,7 @@ class CreateForm(FlaskForm):
                                     validators=[InputRequired(),
                                                 NumberRange(min=1)])
     default_lot = IntegerField("Default Lot Size:",
-                               validators=[Optional(),
+                               validators=[InputRequired(),
                                            NumberRange(min=0, max=15)])
     time_limit = IntegerField("Time Limit (seconds):",
                               validators=[Optional(), NumberRange(min=1)])
@@ -50,10 +50,6 @@ class CreateForm(FlaskForm):
     def validate_first_nom(self, first_nom):
         if first_nom.data and first_nom.data not in cube_cards.keys():
             raise ValidationError("That card isn't in the cube.")
-        if not self.default_lot.data and not first_nom.data:
-            raise ValidationError("A first nomination is required if no "
-                                  "default lot size is provided.")
-
 
 class BidForm(FlaskForm):
     auction_id = HiddenField()
