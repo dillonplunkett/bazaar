@@ -117,14 +117,14 @@
 {% block app_scripts %}
     <script>
         function update_clock() {
-            var time_limit = {{ auction.time_limit }};
+            var time_limit = {{ auction.time_limit if auction.time_limit else 0}};
             var start_time = moment.utc("{{ lot.timestamp }}");
             var since_start = moment().diff(start_time);
             if (since_start >= 60*60*1000) {
                 $("#clock").html("(stale lot)");
             } else {
                 $("#clock").html(moment.utc(since_start).format("mm:ss"));
-                if (since_start >= time_limit * 1000) {
+                if ((time_limit) && (since_start >= time_limit * 1000)) {
                     $("#clock").css("color", "red");
                 }
             }
