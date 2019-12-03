@@ -48,7 +48,7 @@ class CreateForm(FlaskForm):
             raise ValidationError("You must be one of the drafters.")
 
     def validate_first_nom(self, first_nom):
-        if first_nom.data and first_nom.data not in cube_cards.keys():
+        if first_nom.data and first_nom.data not in cube_cards:
             raise ValidationError("That card isn't in the cube.")
 
 class BidForm(FlaskForm):

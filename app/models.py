@@ -1,12 +1,16 @@
 from datetime import datetime
 import random
-import json
 from flask_login import UserMixin
 from werkzeug.security import generate_password_hash, check_password_hash
 from app import db, login
 
-with open("cube.json", "r") as cube_file:
-    cube_cards = json.load(cube_file)
+with open("cube_list.txt", "r") as cube_file:
+    cube_cards = [c.strip() for c in cube_file]
+
+with open("custom_cards.txt", "r") as custom_file:
+    custom_cards = {c[0]:c[1] for c in [line.strip().split(" -> ") for line in custom_file]}
+
+cube_cards = [custom_cards.get(card, card) for card in cube_cards]
 
 permitted_bidders = db.Table(
     "permitted_bidders",
@@ -58,7 +62,7 @@ class Pool(db.Model):
         self.cards = copy
 
     def new_from_cube(self):
-        self.cards = list(cube_cards.keys())
+        self.cards = cube_cards
 
 
 class Auction(db.Model):

@@ -61,7 +61,6 @@ def create():
     form = CreateForm()
     all_users = User.query.order_by(db.func.lower(User.username))
     form.usernames.choices = [(u.username, u.username) for u in all_users]
-    cube_card_names = list(cube_cards.keys())
     if form.validate_on_submit():
         users = [User.query.filter_by(username=username).first()
                  for username in form.usernames.data]
@@ -84,7 +83,7 @@ def create():
         db.session.commit()
         return redirect(url_for("auction", auction_id=auction.id))
     return render_template("create.html", title="New Draft", form=form,
-                           cube_card_names=cube_card_names)
+                           cube_cards=cube_cards)
 
 
 @app.route("/auction/<auction_id>", methods=["GET", "POST"])
@@ -194,7 +193,7 @@ def picks(auction_id, username=None):
     # This assumes the cube list is sorted by color. This allows manual tweaks
     # to color identity (e.g., counting Vedalken Shackles as blue).
     # It also relies on dicts preserving order (python >=3.6).
-    color_sorted = sorted(all_cards, key=list(cube_cards).index)
+    color_sorted = sorted(all_cards, key=cube_cards.index)
     return render_template("picks.html",
                            title=f"{username}'s Auction {auction_id} picks",
                            user=user, auction=auction, pick_sorted=all_cards,
