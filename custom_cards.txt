@@ -19,7 +19,7 @@ Sword of War and Peace -> Sword of Red and Green
 Sword of Body and Mind -> Sword of Green and White
 Ral, Storm Conduit -> The Trickster God
 Rashmi, Eternities Crafter -> Rashmi's Apprentice
-Worldkint -> One-Word Keywords
+Worldknit -> One-Word Keywords
 Hallowed Fountain -> Hallowed Fountain Temple
 Watery Grave -> Watery Grave Temple
 Blood Crypt -> Blood Crypt Temple
