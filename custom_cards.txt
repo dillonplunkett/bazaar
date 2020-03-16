@@ -6,7 +6,7 @@ Duress -> Torture
 Dictate of Erebos -> War of Attrition
 Great Furnace -> Klarg's Cannon
 Keldon Marauders -> Really Wild Fire
-Champion of Rhonas -> Caterpillar
+Champion of Rhonas -> Magical Caterpillar
 Lotus Cobra -> Podding Pod
 Expansion -> Pyromancer's Amulet
 Erratic Portal -> Very Erratic Portal
@@ -18,6 +18,7 @@ Sword of Feast and Famine -> Sword of Black and Red
 Sword of War and Peace -> Sword of Red and Green
 Sword of Body and Mind -> Sword of Green and White
 Ral, Storm Conduit -> The Trickster God
+Rashmi, Eternities Crafter -> Rashmi's Apprentice
 Worldkint -> One-Word Keywords
 Hallowed Fountain -> Hallowed Fountain Temple
 Watery Grave -> Watery Grave Temple
