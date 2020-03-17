@@ -1,0 +1,6 @@
+{
+    "recommendations": [
+        // Trim only touched lines.
+        "NathanRidley.autotrim",
+    ]
+}
