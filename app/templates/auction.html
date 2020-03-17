@@ -22,7 +22,7 @@
             {% if lot.content %}
                     <h3>Current Lot</h3>
                     {% for card in lot.content %}
-                        <img src="{{ url_for('static', filename='card_images/'+ card.replace(' ', '_') + '.jpg') }}" width="24%"/>
+                        <img src="{{ card | url_for_card_name }}" width="24%"/>
                     {% endfor %}
             {% else %}
                 <p>Place your bid.</p>
