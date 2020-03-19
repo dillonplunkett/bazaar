@@ -139,9 +139,9 @@
             {% if waiting_on and current_user not in waiting_on %}
                 socket.on("a bid", refresh_auction);
                 // just in case
-                setTimeout(function() {
-                   window.location.href = window.location.href;
-                }, 10000);
+                // setTimeout(function() {
+                //    window.location.href = window.location.href;
+                // }, 10000);
             {% endif %}
             socket.on("next lot", refresh_auction);
             socket.on("reset", refresh_auction);
