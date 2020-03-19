@@ -9,7 +9,6 @@ Skymarcher Aspirant
 Student of Warfare
 Thraben Inspector
 Accorder Paladin
-Adanto Vanguard
 Anafenza, Kin-Tree Spirit
 Glory-Bound Initiate
 Imposing Sovereign
@@ -35,10 +34,8 @@ Sublime Archangel
 Angel of Invention
 Angel of Sanctions
 Lyra Dawnbringer
-Thalia's Lancers
 Venerated Loxodon
 Rules Lawyer
-Sun Titan
 Elesh Norn, Grand Cenobite
 Finale of Glory
 Secure the Wastes
@@ -46,7 +43,6 @@ Iona, Shield of Emeria
 Gideon Blackblade
 Elspeth, Knight-Errant
 Gideon, Ally of Zendikar
-Serra the Benevolent
 Gideon Jura
 Elspeth, Sun's Champion
 Ephemerate
@@ -60,7 +56,6 @@ Council's Judgment
 Armageddon
 Wrath of God
 Fumigate
-Approach of the Second Sun
 Intangible Virtue
 Journey to Nowhere
 Banishing Light
@@ -71,9 +66,7 @@ Parallax Wave
 Divine Visitation
 Enclave Cryptologist
 Hedron Crab
-Pteramander
 Sphinx of Foresight
-Baral, Chief of Compliance
 Jace, Vryn's Prodigy
 Looter il-Kor
 Phantasmal Image
@@ -87,7 +80,6 @@ Cloudkin Seer
 Laboratory Maniac
 Man-o'-War
 Mist-Syndicate Naga
-Spellseeker
 Vendilion Clique
 Glen Elendra Archmage
 God-Eternal Kefnet
@@ -100,7 +92,6 @@ Riftwing Cloudskate
 Consecrated Sphinx
 Torrential Gearhulk
 Mu Yanling, Sky Dancer
-Narset, Parter of Veils
 Jace, Wielder of Mysteries
 Jace, the Mind Sculptor
 Tezzeret, Artifice Master
@@ -114,7 +105,6 @@ Cyclonic Rift
 Mana Leak
 Miscalculation
 Remand
-Archmage's Charm
 Sinister Sabotage
 Thirst for Knowledge
 Cryptic Command
@@ -127,7 +117,6 @@ Gitaxian Probe
 Ponder
 Preordain
 Chart a Course
-Tinker
 Deep Analysis
 Time Warp
 Upheaval
@@ -156,9 +145,7 @@ Zulaport Cutthroat
 Midnight Reaper
 Ophiomancer
 Plague Engineer
-Plaguecrafter
 Rotting Regisaur
-Yahenni, Undying Partisan
 Braids, Cabal Minion
 Gonti, Lord of Luxury
 Kalitas, Traitor of Ghet
@@ -223,14 +210,12 @@ Dire Fleet Daredevil
 Goblin Cratermaker
 Kari Zev, Skyship Raider
 Keldon Marauders
-Orcish Hellraiser
 Young Pyromancer
 Eidolon of the Great Revel
 Ahn-Crop Crasher
 Anje's Ravager
 Combat Celebrant
 Goblin Rabblemaster
-Hell's Thunder
 Krenko, Tin Street Kingpin
 Najeela, the Blade-Blossom
 Rampaging Ferocidon
@@ -291,7 +276,6 @@ Pelt Collector
 Devoted Druid
 Fauna Shaman
 Incubation Druid
-Rofellos, Llanowar Emissary
 Sakura-Tribe Elder
 Scavenging Ooze
 Sylvan Caryatid
@@ -347,7 +331,6 @@ Oath of Druids
 Survival of the Fittest
 Curse of Predation
 Champion of Rhonas
-Vivien's Arkbow
 Birthing Pod
 Gaea's Cradle
 Celestial Colonnade
@@ -371,8 +354,6 @@ Talisman of Dominance
 Thief of Sanity
 Ashiok, Nightmare Weaver
 Hostage Taker
-Tezzeret, Agent of Bolas
-The Scarab God
 Badlands
 Blackcleave Cliffs
 Blood Crypt
@@ -382,7 +363,6 @@ Fireblade Artist
 Talisman of Indulgence
 Judith, the Scourge Diva
 Daretti, Ingenious Iconoclast
-Falkenrath Aristocrat
 Raging Ravine
 Sheltered Thicket
 Stomping Ground
@@ -427,7 +407,6 @@ Abrupt Decay
 Pernicious Deed
 Meren of Clan Nel Toth
 Underrealm Lich
-Vraska, Relic Seeker
 Breeding Pool
 Misty Rainforest
 Tropical Island
@@ -465,7 +444,6 @@ Sword of Fire and Ice
 Sword of Light and Shadow
 Sword of War and Peace
 Kitchen Finks
-Kiora, Behemoth Beckoner
 Ral, Storm Conduit
 Angrath, Captain of Chaos
 Worldknit
@@ -473,7 +451,6 @@ Chrome Mox
 Mox Diamond
 Bonesplitter
 Pithing Needle
-Skullclamp
 Chaos Orb
 Erratic Portal
 Everflowing Chalice
@@ -493,7 +470,6 @@ Tangle Wire
 Worn Powerstone
 Coercive Portal
 Conjurer's Closet
-Hedron Archive
 Thran Dynamo
 Batterskull
 Gilded Lotus
@@ -502,7 +478,6 @@ Cheatyface
 Signal Pest
 Phyrexian Revoker
 Porcelain Legionnaire
-Metalworker
 Phyrexian Metamorph
 Crystalline Crawler
 Lodestone Golem
@@ -539,7 +514,6 @@ Integrity // Intervention
 Doomed Artisan
 Castle Ardenvale
 Vantress Gargoyle
-Castle Vantress
 Murderous Rider
 Rankle, Master of Pranks
 Clackbridge Troll
@@ -553,3 +527,29 @@ Fabled Passage
 Problematic Volcano
 Tibalt the Chaotic
 Louvaq, the Aberrant
+Charming Prince
+Heliod, Sun-Crowned
+Harmonious Archon
+Elspeth, Sun's Nemesis
+Brazen Borrower
+Thassa's Oracle
+Nadir Kraken
+Thassa, Deep-Dwelling
+Callous Dismissal
+Woe Strider
+Earthshaker Khenra
+Phoenix of Ash
+Fallen Shinobi
+Greven, Predator Captain
+Polukranos, Unchained
+Uro, Titan of Nature's Wrath
+Aether Hub
+Archangel of Thune
+Kiora Bests the Sea God
+Nexus of Fate
+Dreadhorde Invasion
+Hexdrinker
+Carnage Tyrant
+Yuriko, the Tiger's Shadow
+Golos, Tireless Pilgrim
+Sundering Titan

@@ -1,16 +1,20 @@
 Declaration in Stone -> Golden Parachute
+Fumigate -> For the Greater Good
 Sphinx of Foresight -> Voidfish Hatchling
 Carrion Feeder -> Brain Eater
 Despise -> Violent Interrogation
 Duress -> Torture
 Dictate of Erebos -> War of Attrition
+Stormblood Berserker -> Magus of Possibility
 Great Furnace -> Klarg's Cannon
 Keldon Marauders -> Really Wild Fire
-Champion of Rhonas -> Magical Caterpillar
-Lotus Cobra -> Podding Pod
+Evolution Sage -> Young Naturalist
+Lotus Cobra -> Magical Caterpillar
+Champion of Rhonas -> Podding Pod
 Expansion -> Pyromancer's Amulet
 Erratic Portal -> Very Erratic Portal
 Panharmonicon -> Cheaper Panharmonicon
+Smokestack -> Better Smokestack
 Conjurer's Closet -> Conjurer's Wardrobe
 Sword of Light and Shadow -> Sword of White and Blue
 Sword of Fire and Ice -> Sword of Blue and Black
@@ -30,3 +34,4 @@ Steam Vents -> Steam Vents Temple
 Overgrown Tomb -> Overgrown Tomb Temple
 Sacred Foundry -> Sacred Foundry Temple
 Breeding Pool -> Breeding Pool Temple
+Aether Hub -> Wormhole
