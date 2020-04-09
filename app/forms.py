@@ -54,12 +54,10 @@ class CreateForm(FlaskForm):
 class BidForm(FlaskForm):
     auction_id = HiddenField()
     lot_id = HiddenField()
-    amount = IntegerField("Bid:", validators=[Optional(), NumberRange(min=0)])
+    amount = IntegerField("Bid:", validators=[InputRequired(), NumberRange(min=0)])
     submit_bid = SubmitField("Place Bid")
 
     def validate_amount(self, amount):
-        if not amount.data:
-            return
         balance = Balance.query.filter_by(
             holder=current_user, auction_id=self.auction_id.data).first()
         if amount.data > balance.amount:
