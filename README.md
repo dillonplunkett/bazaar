@@ -12,7 +12,7 @@
   - [Running a Draft](#running-a-draft)
 - [Contributing](#contributing)
 - [License](#license)
-- [Acknowledgements](#acknowledgements)
+- [Acknowledgments](#acknowledgments)
 
 ## About
 _Bazaar_ hosts online auction drafts (as in fantasy sports). It is primarily designed for drafting Magic: the Gathering cubes, but can be adapted for any kind of auction draft.
@@ -47,8 +47,10 @@ Contributions are warmly welcomed. Report bugs using the [issue tracker][issues]
 ## License
 Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
 
-## Acknowledgements
+## Acknowledgments
 Miguel Grinberg's [Flask Mega-Tutorial][mega_tutorial] was instrumental in the creation of _Bazaar_.
+
+_Bazaar_ uses the wonderful [Scryfall](https://scryfall.com/) API.
 
 
 [issues]: https://github.com/dillonplunkett/bazaar/issues
