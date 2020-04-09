@@ -1,4 +1,4 @@
-from flask import flash, redirect, render_template, request, url_for
+from flask import flash, jsonify, redirect, render_template, request, url_for
 from flask_login import current_user, login_required, login_user, logout_user
 from flask_socketio import emit
 from werkzeug.urls import url_parse
@@ -198,3 +198,13 @@ def picks(auction_id, username=None):
                            title=f"{username}'s Auction {auction_id} picks",
                            user=user, auction=auction, pick_sorted=all_cards,
                            color_sorted=color_sorted)
+
+@app.route("/auction/<auction_id>/status", methods=["GET"])
+@login_required
+def status(auction_id):
+    auction = Auction.query.filter_by(id=auction_id).first_or_404()
+    lot = auction.current_lot()
+    return jsonify({
+        "current_lot_id": lot.id,
+        "waiting_on": lot.waiting_on_serialized()
+    })

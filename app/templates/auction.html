@@ -130,22 +130,31 @@
             }
         }
         function refresh_auction(msg) {
-            if (msg["auction.id"] === {{ auction.id}}) {
-                window.location.href = window.location.href;
+            // Only refresh if the refresh message was for this auction.
+            if (msg["auction.id"] === {{ auction.id }}) {
+                window.location.reload();
             }
         }
         $(document).ready(function() {
             var socket = io.connect();
             {% if waiting_on and current_user not in waiting_on %}
                 socket.on("a bid", refresh_auction);
-                // just in case
-                // setTimeout(function() {
-                //    window.location.href = window.location.href;
-                // }, 10000);
             {% endif %}
             socket.on("next lot", refresh_auction);
             socket.on("reset", refresh_auction);
             socket.on("some bidders skipped", refresh_auction);
+
+            // Check that the auction didn't advance to next lot already.
+            $.get("/auction/{{ auction.id }}/status").then(function(data) {
+                var incorrect_lot = ({{ lot.id }} !== data.current_lot_id);
+                var incorrect_waiting_on = (
+                    "{{ lot.waiting_on_serialized() }}" !== data.waiting_on
+                );
+                if (incorrect_lot || incorrect_waiting_on) {
+                    // Refresh if it did.
+                    window.location.reload();
+                }
+            });
 
             setInterval(update_clock, 100);
             update_clock();

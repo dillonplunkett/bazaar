@@ -144,6 +144,9 @@ class Lot(db.Model):
         return [user for user in self.auction.users
                 if not self.final_bid(user) and user.has_funds(self.auction)]
 
+    def waiting_on_serialized(self):
+        return ",".join(str(user.id) for user in sorted(self.waiting_on(), key=lambda u: u.id))
+
     def record_winner(self):
         winning_bid = self.max_bid()
         self.winner = winning_bid.bidder
