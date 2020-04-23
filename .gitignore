@@ -1,5 +1,6 @@
 app/static/card_images/
 app.db
+custom_cards.txt
 todo.txt
 
 __pycache__/
