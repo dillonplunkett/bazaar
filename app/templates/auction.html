@@ -20,7 +20,7 @@
 
         <div id="lot" class="text-center">
             {% if lot.content %}
-                    <h3>Current Lot</h3>
+                    <h3>Lot {{ lot.number() }}</h3>
                     {% for card in lot.content %}
                         <img src="{{ card | url_for_card_name }}" width="24%"/>
                     {% endfor %}

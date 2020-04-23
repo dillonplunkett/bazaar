@@ -121,6 +121,10 @@ class Lot(db.Model):
     def __repr__(self):
         return f"<Lot {self.id}>"
 
+    def number(self):
+        lots = sorted(self.auction.lots, key=lambda l: l.timestamp)
+        return lots.index(self) + 1
+
     def final_bid(self, user):
         user_bids = self.bids.filter_by(bidder=user)
         return user_bids.order_by(Bid.timestamp.desc()).first()
