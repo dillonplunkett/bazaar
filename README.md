@@ -29,7 +29,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 2. Replace `cube_list.txt` with your cube list (one card per line).
-3. Build a folder of card images by running `python fetch_images.py`.
+3. Build a folder of card images by running `python fetch_images.py`. This will take about one minute per 100 cards. 
 4. Initialize the database with `flask db upgrade`.
 5. _Bazaar_ supports custom cards. However, `cube_list.txt` must only contain real card names. To implement custom cards, ensure there is a unique "placeholder" card name in `cube_list.txt` for each custom card. Then, create a file called `custom_cards.txt` with a list of `placeholder_cardname -> custom_cardname`, one per line. Then, place images for your custom cards in the `app/static/card_images` directory. The image names must be the custom card names with all non-alphanumeric characters removed and must end in `.jpg` (e.g., `CustomCardname7.jpg`).
 ## Usage
