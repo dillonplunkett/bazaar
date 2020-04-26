@@ -44,6 +44,9 @@ pip install -r requirements.txt
 2. After each player has placed a bid, the bids and winner are displayed and the lot is added to the winner's pool. The owner of the draft must click a button to advance to the next lot (to allow drafters time to see the outcome).
 3. Each player's currency balance is visible to everyone else on the draft page. Each player's pool of cards that they have won is visible at all times on pages linked from the draft page.
 4. The draft is complete when no player has any currency left, the pool of cards has been exhausted, or (most commonly) by stopping after a pre-designated number of lots.
+### Notes
+- If two players bid the same amount, the player who submitted their bid first wins the lot. 
+- Players who have already bid on a lot can submit another bid to change their bid. The most recent bid from each player is used. (Bidding closes when every player has submitted a bid or if the auction owner closes it manually before then.)
 
 ## Contributing
 Contributions are warmly welcomed. Report bugs using the [issue tracker][issues]. To contribute code, submit a [pull request][pull_requests].
