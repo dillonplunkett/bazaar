@@ -87,7 +87,7 @@
 
     {% else %}
 
-        <h3>Auction Complete!</h3>
+        <h3 class="text-center">Auction Complete!</h3>
 
     {% endif %}
 
@@ -135,31 +135,37 @@
                 window.location.reload();
             }
         }
-        $(document).ready(function() {
-            var socket = io.connect();
-            {% if waiting_on and current_user not in waiting_on %}
-                socket.on("a bid", refresh_auction);
-            {% endif %}
-            socket.on("next lot", refresh_auction);
-            socket.on("reset", refresh_auction);
-            socket.on("some bidders skipped", refresh_auction);
 
-            // Check that the auction didn't advance to next lot already.
-            $.get("/auction/{{ auction.id }}/status").then(function(data) {
-                var incorrect_lot = ({{ lot.id }} !== data.current_lot_id);
-                var incorrect_waiting_on = (
-                    "{{ lot.waiting_on_serialized() }}" !== data.waiting_on
-                );
-                if (incorrect_lot || incorrect_waiting_on) {
-                    // Refresh if it did.
-                    window.location.reload();
-                }
+        {% if lot %}
+
+            $(document).ready(function() {
+                var socket = io.connect();
+                {% if waiting_on and current_user not in waiting_on %}
+                    socket.on("a bid", refresh_auction);
+                {% endif %}
+                socket.on("next lot", refresh_auction);
+                socket.on("reset", refresh_auction);
+                socket.on("some bidders skipped", refresh_auction);
+
+                // Check that the auction didn't advance to next lot already.
+                $.get("/auction/{{ auction.id }}/status").then(function(data) {
+                    var incorrect_lot = ({{ lot.id }} !== data.current_lot_id);
+                    var incorrect_waiting_on = (
+                        "{{ lot.waiting_on_serialized() }}" !== data.waiting_on
+                    );
+                    if (incorrect_lot || incorrect_waiting_on) {
+                        // Refresh if it did.
+                        window.location.reload();
+                    }
+                });
+
+                setInterval(update_clock, 100);
+                update_clock();
+
+                {{ autocomplete("next_lot", auction.pool.cards) }}
             });
 
-            setInterval(update_clock, 100);
-            update_clock();
+        {% endif %}
 
-            {{ autocomplete("next_lot", auction.pool.cards) }}
-        });
     </script>
 {% endblock %}

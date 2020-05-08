@@ -95,9 +95,13 @@ def auction(auction_id):
     if auction not in current_user.auctions:
         flash("You are not an authorized member of that auction.")
         return redirect(url_for("index"))
+    balances = (
+        auction.balances.join(User).order_by(db.func.lower(User.username))
+    )
     if not lot:
         return render_template("auction.html", title=f"Auction {auction_id}",
-                               auction=auction, users=users, lot=None)
+                               auction=auction, users=users, balances=balances,
+                               lot=None)
     advance_form = AdvanceForm()
     advance_form.auction_id.data = auction_id
     close_bidding_form = CloseBiddingForm()
@@ -164,8 +168,6 @@ def auction(auction_id):
     if waiting_on and current_user not in waiting_on:
         names = ", ".join([user.username for user in waiting_on])
         flash(f"Waiting on {names}.")
-    balances = (auction.balances.join(User).
-                order_by(db.func.lower(User.username)))
     return render_template("auction.html", title=f"Auction {auction_id}",
                            auction=auction, users=users, balances=balances,
                            lot=lot, waiting_on=waiting_on, bid_form=bid_form,
