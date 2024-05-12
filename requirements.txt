@@ -1,6 +1,6 @@
 alembic==1.4.1
 click==7.1.1
-dnspython==1.16.0
+dnspython==2.6.1
 dominate==2.5.1
 eventlet==0.35.2
 Flask==2.3.2
